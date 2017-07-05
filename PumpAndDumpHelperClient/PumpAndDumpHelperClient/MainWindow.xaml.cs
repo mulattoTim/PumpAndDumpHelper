@@ -37,8 +37,12 @@ namespace PumpAndDumpHelperClient
 
         public async Task UpdateUI(int secondsSinceLastUpdate)
         {
+            //grab value from text box. 
+            string tickerAbbreviation = txt_tickerValue.Text;
+
+            //todo: eventually add a time delayed auto refreshing call to GetTicker()
             //api call(s) entry point to get ticker info
-            GetTicker();
+            GetTicker(tickerAbbreviation);
             
             //do calculations
             CalculateBuyPrices();
@@ -47,11 +51,16 @@ namespace PumpAndDumpHelperClient
             CalculateProfitPerCoin();
             CalculateROI();
 
+            
+
+            //update "Last update: __ secs ago" label controls
             UpdateLastPriceUpdateTimer(secondsSinceLastUpdate);
         }
 
         public async Task UpdateLastPriceUpdateTimer(int secondsSinceLastUpdate)
             {
+
+            //really hacky way of updating once per second...dat infinite recursion doe.
             await Task.Delay(1000);
             int TimeSinceLastUpdate = secondsSinceLastUpdate;
             lbl_LastUpdateTime.Content = TimeSinceLastUpdate + " secs ago.";
@@ -69,7 +78,7 @@ namespace PumpAndDumpHelperClient
             }
 
 
-        public async Task GetTicker()
+        public async Task GetTicker(string coinToCheck)
         {
             var exc = new Exchange();
             var context = new ExchangeContext();
@@ -80,11 +89,12 @@ namespace PumpAndDumpHelperClient
             context.QuoteCurrency = "BTC";
             exc.Initialise(context);
 
-            var coinToCheck = txt_tickerValue.Text;
+            
             if (!string.IsNullOrEmpty(coinToCheck))
+                //only update the prices if there's something typed in.
+                //hopefully this prevents the API from banning our IP address.
             {
-
-                var coinTickerInfo = exc.GetTicker(txt_tickerValue.Text);
+                var coinTickerInfo = exc.GetTicker(coinToCheck);
 
                 var updatedPrice_Last = coinTickerInfo.Last;
                 var updatedPrice_Bid = coinTickerInfo.Bid;
@@ -99,32 +109,57 @@ namespace PumpAndDumpHelperClient
         public async Task CalculateBuyPrices()
             {
 
+            // 1. Find out how much BTC you have available in your account.
+            // 2. find the current buy price (in btc/satoshis)
+            // 3. divide step 1 by step 2. 
+            // 4. Take the answer and convert to $USD and update some local variable
+            // 5. update the UI
+
             }
 
         public async Task CalculateSellPrices()
             {
+
+            // 1. Find out how much of the selected coin you have available in your account.
+            // 2. find the current sale price (in btc/satoshis)
+            // 3. divide step 1 by step 2. 
+            // 4. Take the answer and convert to $USD and update some local variable
+            // 5. update the UI
 
             }
 
         public async Task CalculatePriceOfBTC()
             {
 
+            // Should be a simple api call to get the current price of the BTC-USD ticker.  Does bittrex even have this?  hmm...
+
             }
 
         public async Task CalculateProfitPerCoin()
             {
+            // figure out how much the transaction fee will be.
+            // convert the transaction fee to USD.
+            // ((Buy price - Saleprice) - transactionfees/taxes/w.e else) = profit
+            //update UI with profit
 
             }
 
         public async Task CalculateROI()
             {
-
+            // Profit divided by the sum of the amount of coins you have. converted to a percentage.
             }
 
 
         private void btn_ManuallyUpdateTickerInfo_Click(object sender, RoutedEventArgs e)
         {
             //fire off one instance of the "refresh" functionality once it's all fleshed out.
-        }
+
+            //grab value from text box. 
+            string tickerAbbreviation = txt_tickerValue.Text;
+
+            //api call(s) entry point to get ticker info
+            GetTicker(tickerAbbreviation);
+
+            }
     }
 }
