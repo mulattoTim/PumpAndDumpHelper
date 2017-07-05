@@ -157,8 +157,16 @@ namespace PumpAndDumpHelperClient
             //grab value from text box. 
             string tickerAbbreviation = txt_tickerValue.Text;
 
+            //do calculations
+            CalculateBuyPrices();
+            CalculateSellPrices();
+            CalculatePriceOfBTC();
+            CalculateProfitPerCoin();
+            CalculateROI();
+
             //api call(s) entry point to get ticker info
             GetTicker(tickerAbbreviation);
+
 
             }
     }
