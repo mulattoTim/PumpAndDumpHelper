@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Bittrex
 {
     public class Exchange : IExchange
-    {
+    { 
         const string ApiCallTemplate = "https://bittrex.com/api/{0}/{1}";
         const string ApiVersion = "v1.1";
         const string ApiCallGetMarkets = "public/getmarkets";
@@ -77,7 +77,7 @@ namespace Bittrex
         }
 
         public dynamic GetTicker(string market)
-        {
+        { 
             return this.Call<dynamic>(ApiCallGetTicker, Tuple.Create("market", GetMarketName(market)));
         }
 

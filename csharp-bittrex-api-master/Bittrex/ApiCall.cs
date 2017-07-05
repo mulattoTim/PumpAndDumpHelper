@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Bittrex
-{
+{ 
     public class ApiCall
     {
         private readonly bool simulate;

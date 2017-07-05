@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Bittrex
 {
     public interface IExchange
-    {
+    { 
         void Initialise(ExchangeContext context);
         AccountBalance GetBalance(string market);
         GetBalancesResponse GetBalances();

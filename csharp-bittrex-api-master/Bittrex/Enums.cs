@@ -11,7 +11,7 @@ namespace Bittrex
         Buy,
         Sell,
         Both
-    }
+    } 
 
     public enum FillType
     {
