@@ -31,27 +31,42 @@ namespace PumpAndDumpHelperClient
 
             InitializeComponent();
             int TimeSinceLastUpdate = 5;
-            UpdateLastPriceUpdateTimer(TimeSinceLastUpdate);
+            UpdateUI(TimeSinceLastUpdate);
             
         }
 
-        public async Task UpdateLastPriceUpdateTimer(int secondsSinceLastUpdate)
+        public async Task UpdateUI(int secondsSinceLastUpdate)
         {
+            //api call(s) entry point to get ticker info
+            GetTicker();
+            
+            //do calculations
+            CalculateBuyPrices();
+            CalculateSellPrices();
+            CalculatePriceOfBTC();
+            CalculateProfitPerCoin();
+            CalculateROI();
+
+            UpdateLastPriceUpdateTimer(secondsSinceLastUpdate);
+        }
+
+        public async Task UpdateLastPriceUpdateTimer(int secondsSinceLastUpdate)
+            {
             await Task.Delay(1000);
             int TimeSinceLastUpdate = secondsSinceLastUpdate;
             lbl_LastUpdateTime.Content = TimeSinceLastUpdate + " secs ago.";
             if (TimeSinceLastUpdate < 4)
-            {
+                {
                 secondsSinceLastUpdate = secondsSinceLastUpdate + 1;
                 UpdateLastPriceUpdateTimer(secondsSinceLastUpdate);
-            }
+                }
             else
-            {
+                {
                 secondsSinceLastUpdate = 0;
                 UpdateLastPriceUpdateTimer(secondsSinceLastUpdate);
-            }
+                }
 
-        }
+            }
 
 
         public async Task GetTicker()
