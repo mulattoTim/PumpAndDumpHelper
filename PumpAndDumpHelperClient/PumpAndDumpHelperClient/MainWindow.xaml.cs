@@ -87,7 +87,7 @@ namespace PumpAndDumpHelperClient
             var context = new ExchangeContext();
 
             context.ApiKey = Settings.Default["APIKey"].ToString();
-            context.Secret = Settings.Default["SecretKey"].ToString();
+            context.Secret = Settings.Default["APIKey"].ToString();
             context.Simulate = true;
             context.QuoteCurrency = "BTC";
             exc.Initialise(context);
