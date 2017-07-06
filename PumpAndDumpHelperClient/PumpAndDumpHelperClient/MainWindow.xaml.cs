@@ -31,9 +31,12 @@ namespace PumpAndDumpHelperClient
 
             InitializeComponent();
             double TimeSinceLastUpdate = 5;
-            UpdateUI(TimeSinceLastUpdate);
+            GetBalanceOfACoin("BTC");
 
+            UpdateUI(TimeSinceLastUpdate);
             
+
+
         }
 
         public async Task UpdateUI(double secondsSinceLastUpdate)
@@ -42,8 +45,10 @@ namespace PumpAndDumpHelperClient
             string tickerAbbreviation = txt_tickerValue.Text;
 
             //todo: eventually add a time delayed auto refreshing call to GetTicker()
-            //api call(s) entry point to get ticker info
-            GetTicker(tickerAbbreviation);
+            
+            //api call(s) entry point to get market summary
+            GetMarketSummary(tickerAbbreviation);
+            
             
             //do calculations
             CalculateBuyPrices();
@@ -103,10 +108,40 @@ namespace PumpAndDumpHelperClient
                 var updatedPrice_Ask = coinTickerInfo.Ask;
 
                 lbl_CurrentBuyPriceAmountInBTC.Content = updatedPrice_Bid;
-                lbl_CurrentSalePriceAmountInBTC.Content = updatedPrice_Ask;
+                lbl_CurrentTickerBuyPriceAmountInBTC.Content = updatedPrice_Bid;
+                lbl_CurrentTickerSalePriceAmountInBTC.Content = updatedPrice_Ask;
+                lbl_SellPriceInBTCAmount.Content = updatedPrice_Ask;
             }
         }
 
+        public async Task GetMarketSummary(string coinToCheck)
+        {
+
+            var exc = new Exchange();
+            var context = new ExchangeContext();
+
+            context.ApiKey = txt_ApiKey.Text;
+            context.Secret = txt_SecretKey.Text;
+            context.Simulate = true;
+            context.QuoteCurrency = "BTC";
+            exc.Initialise(context);
+
+            if (!string.IsNullOrEmpty(coinToCheck))
+            //only update the prices if there's more than one char typed in.
+            //hopefully this prevents the API from banning our IP address.
+            {
+                var coinTickerInfo = exc.GetMarketSummary(coinToCheck);
+
+                var updatedPrice_Last = coinTickerInfo.Last;
+                var updatedPrice_Bid = coinTickerInfo.Bid;
+                var updatedPrice_Ask = coinTickerInfo.Ask;
+
+                lbl_CurrentBuyPriceAmountInBTC.Content = updatedPrice_Bid;
+                lbl_CurrentTickerBuyPriceAmountInBTC.Content = updatedPrice_Bid;
+                lbl_CurrentTickerSalePriceAmountInBTC.Content = updatedPrice_Ask;
+                lbl_SellPriceInBTCAmount.Content = updatedPrice_Ask;
+            }
+        }
 
         public async Task CalculateBuyPrices()
             {
@@ -117,7 +152,25 @@ namespace PumpAndDumpHelperClient
             // 4. Take the answer and convert to $USD and update some local variable
             // 5. update the UI
 
-            }
+            //GetBalanceOfBTC()
+            //GetMarketSummary(bid)
+            var currentBuyPriceOfCoin = lbl_CurrentBuyPriceAmountInBTC.Content;
+            var buyPriceInBTC = lbl_BuyPriceInBTCAmount.Content;
+            //var priceInUSD = lbl_BuyPriceInUSDAmount.Content;
+
+            decimal coinsPurchasable = decimal.Parse(lbl_BTCBalanceAmount.Content.ToString()) / decimal.Parse(lbl_CurrentBuyPriceAmountInBTC.Content.ToString());
+
+            //double coinsPurchasable = (double)lbl_BTCBalanceAmount.Content * (double)lbl_CurrentBuyPriceAmountInBTC.Content;
+            decimal BTCTotalPriceOfBuyOrder = decimal.Parse(currentBuyPriceOfCoin.ToString()) * decimal.Parse(coinsPurchasable.ToString());
+            //double BTCTotalPriceOfBuyOrder = (double)currentBuyPriceOfCoin * coinsPurchasable;
+
+            lbl_CoinsPurchasableAmount.Content = coinsPurchasable.ToString();
+            lbl_BuyPriceInBTCAmount.Content = BTCTotalPriceOfBuyOrder.ToString();
+
+            var priceInUSD = decimal.Parse(lbl_BTCCurrentValueAmount.Content.ToString()) * decimal.Parse(BTCTotalPriceOfBuyOrder.ToString());
+            lbl_BuyPriceInUSDAmount.Content = priceInUSD;
+            lbl_BuyPriceInUSDAmount.Content = priceInUSD;
+        }
 
         public async Task CalculateSellPrices()
             {
@@ -172,15 +225,44 @@ namespace PumpAndDumpHelperClient
 
             }
 
+        public async Task GetBalanceOfACoin(string coinToCheck)
+            {
+
+            var exc = new Exchange();
+            var context = new ExchangeContext();
+
+            context.ApiKey = txt_ApiKey.Text;
+            context.Secret = txt_SecretKey.Text;
+            context.Simulate = true;
+            context.QuoteCurrency = "BTC";
+            exc.Initialise(context);
+
+            if (!string.IsNullOrEmpty(coinToCheck))        
+            {
+                var CoinBalanceCall = exc.GetBalance(coinToCheck);
+                var CoinCurrentBalance = CoinBalanceCall.Balance;
+
+                if (coinToCheck.ToUpper() == "BTC" ) {
+                    lbl_BTCBalanceAmount.Content = CoinCurrentBalance;
+                }else {
+                    lbl_CoinsOwnedAmount.Content = CoinCurrentBalance;
+                }
+
+            }
+
+        }
+
         private void txt_tickerValue_TextChanged(object sender, TextChangedEventArgs e)
         {
             //grab value from text box. 
             string tickerAbbreviation = txt_tickerValue.Text;
             var tickerNameLength = tickerAbbreviation.Length;
 
-            if (tickerNameLength > 1)
+            if (tickerNameLength > 1 && tickerNameLength < 5)
             {
-                GetTicker(tickerAbbreviation);
+                GetMarketSummary(tickerAbbreviation);
+                CalculateBuyPrices();
+
             }
         }
     }
