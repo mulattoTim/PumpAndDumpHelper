@@ -30,12 +30,13 @@ namespace PumpAndDumpHelperClient
         {
 
             InitializeComponent();
-            int TimeSinceLastUpdate = 5;
+            double TimeSinceLastUpdate = 5;
             UpdateUI(TimeSinceLastUpdate);
+
             
         }
 
-        public async Task UpdateUI(int secondsSinceLastUpdate)
+        public async Task UpdateUI(double secondsSinceLastUpdate)
         {
             //grab value from text box. 
             string tickerAbbreviation = txt_tickerValue.Text;
@@ -57,16 +58,17 @@ namespace PumpAndDumpHelperClient
             UpdateLastPriceUpdateTimer(secondsSinceLastUpdate);
         }
 
-        public async Task UpdateLastPriceUpdateTimer(int secondsSinceLastUpdate)
+        public async Task UpdateLastPriceUpdateTimer(double secondsSinceLastUpdate)
             {
 
             //really hacky way of updating once per second...dat infinite recursion doe.
-            await Task.Delay(1000);
-            int TimeSinceLastUpdate = secondsSinceLastUpdate;
-            lbl_LastUpdateTime.Content = TimeSinceLastUpdate + " secs ago.";
-            if (TimeSinceLastUpdate < 4)
+            
+            double TimeSinceLastUpdate = secondsSinceLastUpdate;
+            lbl_LastUpdateTime.Content = Math.Round(TimeSinceLastUpdate, 2, MidpointRounding.AwayFromZero) + " secs ago.";
+            if (TimeSinceLastUpdate <= 3.1)
                 {
-                secondsSinceLastUpdate = secondsSinceLastUpdate + 1;
+                await Task.Delay(100);
+                secondsSinceLastUpdate = secondsSinceLastUpdate + .1;
                 UpdateLastPriceUpdateTimer(secondsSinceLastUpdate);
                 }
             else
@@ -85,13 +87,13 @@ namespace PumpAndDumpHelperClient
 
             context.ApiKey = txt_ApiKey.Text;
             context.Secret = txt_SecretKey.Text;
-            context.Simulate = false;
+            context.Simulate = true;
             context.QuoteCurrency = "BTC";
             exc.Initialise(context);
 
             
             if (!string.IsNullOrEmpty(coinToCheck))
-                //only update the prices if there's something typed in.
+                //only update the prices if there's more than one char typed in.
                 //hopefully this prevents the API from banning our IP address.
             {
                 var coinTickerInfo = exc.GetTicker(coinToCheck);
@@ -169,5 +171,17 @@ namespace PumpAndDumpHelperClient
 
 
             }
+
+        private void txt_tickerValue_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //grab value from text box. 
+            string tickerAbbreviation = txt_tickerValue.Text;
+            var tickerNameLength = tickerAbbreviation.Length;
+
+            if (tickerNameLength > 1)
+            {
+                GetTicker(tickerAbbreviation);
+            }
+        }
     }
 }

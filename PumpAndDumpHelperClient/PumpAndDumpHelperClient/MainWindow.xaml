@@ -28,7 +28,7 @@
         <Label x:Name="lbl_CoinsOwnedAmount" Content="NaN" HorizontalAlignment="Left" Height="23" Margin="493,162,0,0" VerticalAlignment="Top" Width="94" Foreground="#FF035111" FontWeight="Bold"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="125" Margin="339,113,0,0" VerticalAlignment="Top" Width="241" Panel.ZIndex="-2" Background="#FFF3F3F3"/>
         <Label x:Name="lblCoinName" Content="COIN NAME" HorizontalAlignment="Left" Height="62" Margin="85,68,0,0" VerticalAlignment="Top" Width="220" FontSize="36" FontWeight="Bold"/>
-        <TextBox x:Name="txt_tickerValue" HorizontalAlignment="Left" Height="105" Margin="85,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="72" FontWeight="Bold" Background="White" TextAlignment="Center"/>
+        <TextBox x:Name="txt_tickerValue" HorizontalAlignment="Left" Height="105" Margin="85,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="72" FontWeight="Bold" Background="White" TextAlignment="Center" TextChanged="txt_tickerValue_TextChanged"/>
         <Button x:Name="btn_ManuallyUpdateTickerInfo" Content="" HorizontalAlignment="Left" Height="32" Margin="30,162,0,0" VerticalAlignment="Top" Width="37" Click="btn_ManuallyUpdateTickerInfo_Click">
             <Button.Effect>
                 <DropShadowEffect BlurRadius="2" RenderingBias="Quality" ShadowDepth="3"/>
