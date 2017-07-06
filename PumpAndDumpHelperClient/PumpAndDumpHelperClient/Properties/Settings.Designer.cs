@@ -12,7 +12,7 @@ namespace PumpAndDumpHelperClient.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,7 +25,7 @@ namespace PumpAndDumpHelperClient.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("036b2038fd8a4f8891d7de5d84e62fb2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("6412b99c9ba946628fc14ad418f594d7")]
         public string APIKey {
             get {
                 return ((string)(this["APIKey"]));
@@ -34,7 +34,7 @@ namespace PumpAndDumpHelperClient.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("f111f5080c5b4775a5b88a56f1195b36")]
+        [global::System.Configuration.DefaultSettingValueAttribute("396a530e72f24be786bea7fae4955433")]
         public string SecretKey {
             get {
                 return ((string)(this["SecretKey"]));

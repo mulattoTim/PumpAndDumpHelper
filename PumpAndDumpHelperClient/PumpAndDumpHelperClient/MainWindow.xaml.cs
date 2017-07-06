@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Bittrex;
 using Newtonsoft.Json;
+using PumpAndDumpHelperClient.Properties;
 
 
 namespace PumpAndDumpHelperClient
@@ -32,7 +33,6 @@ namespace PumpAndDumpHelperClient
             InitializeComponent();
             double TimeSinceLastUpdate = 5;
             GetBalanceOfACoin("BTC");
-
             UpdateUI(TimeSinceLastUpdate);
             
 
@@ -52,7 +52,8 @@ namespace PumpAndDumpHelperClient
             
             //do calculations
             CalculateBuyPrices();
-            CalculateSellPrices();
+            var profitGoal = Convert.ToInt32(txt_ProfitGoal.Text);
+            CalculateSellPrices(profitGoal);
             CalculatePriceOfBTC();
             CalculateProfitPerCoin();
             CalculateROI();
@@ -90,8 +91,8 @@ namespace PumpAndDumpHelperClient
             var exc = new Exchange();
             var context = new ExchangeContext();
 
-            context.ApiKey = txt_ApiKey.Text;
-            context.Secret = txt_SecretKey.Text;
+            context.ApiKey = Settings.Default["APIKey"].ToString();
+            context.Secret = Settings.Default["SecretKey"].ToString();
             context.Simulate = true;
             context.QuoteCurrency = "BTC";
             exc.Initialise(context);
@@ -120,8 +121,8 @@ namespace PumpAndDumpHelperClient
             var exc = new Exchange();
             var context = new ExchangeContext();
 
-            context.ApiKey = txt_ApiKey.Text;
-            context.Secret = txt_SecretKey.Text;
+            context.ApiKey = Settings.Default["APIKey"].ToString();
+            context.Secret = Settings.Default["SecretKey"].ToString();
             context.Simulate = true;
             context.QuoteCurrency = "BTC";
             exc.Initialise(context);
@@ -169,10 +170,9 @@ namespace PumpAndDumpHelperClient
 
             var priceInUSD = decimal.Parse(lbl_BTCCurrentValueAmount.Content.ToString()) * decimal.Parse(BTCTotalPriceOfBuyOrder.ToString());
             lbl_BuyPriceInUSDAmount.Content = priceInUSD;
-            lbl_BuyPriceInUSDAmount.Content = priceInUSD;
         }
 
-        public async Task CalculateSellPrices()
+        public async Task CalculateSellPrices(int incomingProfitGoal)
             {
 
             // 1. Find out how much of the selected coin you have available in your account.
@@ -181,7 +181,19 @@ namespace PumpAndDumpHelperClient
             // 4. Take the answer and convert to $USD and update some local variable
             // 5. update the UI
 
-            }
+            var profitGoal = txt_ProfitGoal.Text;
+            var projectedSalePriceperCoin = double.Parse(lbl_CurrentBuyPriceAmountInBTC.Content.ToString()) * double.Parse(profitGoal) ;
+            var projectedTotalSalePriceInBTC = double.Parse(lbl_BuyPriceInBTCAmount.Content.ToString()) * double.Parse(profitGoal);
+            var projectedTotalSalePriceInUSD = double.Parse(lbl_BuyPriceInUSDAmount.Content.ToString()) * double.Parse(profitGoal);
+
+            lbl_SalePricePerCoinIinBTCAmount.Content = projectedSalePriceperCoin;
+            lbl_SellPriceInBTCAmount.Content = projectedTotalSalePriceInBTC;
+            lbl_SellPriceInUSDAmount.Content = projectedTotalSalePriceInUSD;
+            var projectedTotalProfit = decimal.Subtract(decimal.Parse(lbl_SellPriceInUSDAmount.Content.ToString()), decimal.Parse(lbl_BuyPriceInUSDAmount.Content.ToString()));
+            lbl_TotalProfitAmount.Content = projectedTotalProfit;
+
+
+        }
 
         public async Task CalculatePriceOfBTC()
             {
@@ -214,7 +226,8 @@ namespace PumpAndDumpHelperClient
 
             //do calculations
             CalculateBuyPrices();
-            CalculateSellPrices();
+            var profitGoal = Convert.ToInt32(txt_ProfitGoal.Text);
+            CalculateSellPrices(profitGoal);
             CalculatePriceOfBTC();
             CalculateProfitPerCoin();
             CalculateROI();
@@ -231,8 +244,8 @@ namespace PumpAndDumpHelperClient
             var exc = new Exchange();
             var context = new ExchangeContext();
 
-            context.ApiKey = txt_ApiKey.Text;
-            context.Secret = txt_SecretKey.Text;
+            context.ApiKey = Settings.Default["APIKey"].ToString();
+            context.Secret = Settings.Default["SecretKey"].ToString();
             context.Simulate = true;
             context.QuoteCurrency = "BTC";
             exc.Initialise(context);
@@ -243,9 +256,9 @@ namespace PumpAndDumpHelperClient
                 var CoinCurrentBalance = CoinBalanceCall.Balance;
 
                 if (coinToCheck.ToUpper() == "BTC" ) {
-                    lbl_BTCBalanceAmount.Content = CoinCurrentBalance;
+                    lbl_BTCBalanceAmount.Content = CoinCurrentBalance.ToString() ;
                 }else {
-                    lbl_CoinsOwnedAmount.Content = CoinCurrentBalance;
+                    lbl_CoinsOwnedAmount.Content = CoinCurrentBalance.ToString();
                 }
 
             }
@@ -257,13 +270,54 @@ namespace PumpAndDumpHelperClient
             //grab value from text box. 
             string tickerAbbreviation = txt_tickerValue.Text;
             var tickerNameLength = tickerAbbreviation.Length;
+            var currentBTCBalance = lbl_BTCBalanceAmount.Content;
+            var totalBTCValueofTheSelectedCoin = lbl_BTCBalanceAmount.Content;
+            var totalUSDValueofTheSelectedCoin = lbl_PositionValueInUSDAmount.Content;
+            var priceofCoinInBTC = lbl_BuyPriceInBTCAmount.Content;
+            var profitGoal = Convert.ToInt32(txt_ProfitGoal.Text);
+            
 
             if (tickerNameLength > 1 && tickerNameLength < 5)
             {
                 GetMarketSummary(tickerAbbreviation);
-                CalculateBuyPrices();
+                GetBalanceOfACoin(tickerAbbreviation);
 
+                CalculateBuyPrices();
+                CalculateSellPrices(profitGoal);
+
+                var portfolioValueInBTC = decimal.Parse(lbl_CoinsOwnedAmount.Content.ToString()) * decimal.Parse(lbl_CurrentTickerSalePriceAmountInBTC.Content.ToString());
+                var portfolioValueInUSD = decimal.Parse(lbl_BTCCurrentValueAmount.Content.ToString()) * portfolioValueInBTC;
+                lbl_PositionValueInBTCAmount.Content = portfolioValueInBTC;
+                lbl_PositionValueInUSDAmount.Content = portfolioValueInUSD;
             }
+        }
+
+        private void btn_ManuallyUpdateBTCBalance_Click(object sender, RoutedEventArgs e)
+        {
+            GetBalanceOfACoin("BTC");
+        }
+
+        private void txt_ProfitGoal_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txt_ProfitGoal.Text.Length > 0)
+            {
+                var profitGoal = Convert.ToInt32(txt_ProfitGoal.Text);
+                CalculateSellPrices(profitGoal);
+            }
+        }
+
+        private void txt_ProfitGoal_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+                e.Handled = true;
+        }
+
+        private void btn_JoinPump_Click(object sender, RoutedEventArgs e)
+        {
+            //todo: the brains of the operation.  join the pump
+            // calculate prices, shoot off api call to place order
+            //start loop to try and place sell order once buy order has been filled.
+            //
         }
     }
 }

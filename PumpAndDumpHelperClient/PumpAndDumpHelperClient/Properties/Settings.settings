@@ -3,10 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="APIKey" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">036b2038fd8a4f8891d7de5d84e62fb2</Value>
+      <Value Profile="(Default)">6412b99c9ba946628fc14ad418f594d7</Value>
     </Setting>
     <Setting Name="SecretKey" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">f111f5080c5b4775a5b88a56f1195b36</Value>
+      <Value Profile="(Default)">396a530e72f24be786bea7fae4955433</Value>
     </Setting>
   </Settings>
 </SettingsFile>
