@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Bittrex;
 using Newtonsoft.Json;
+using PumpAndDumpHelperClient.Properties;
 
 
 namespace PumpAndDumpHelperClient
@@ -85,8 +86,8 @@ namespace PumpAndDumpHelperClient
             var exc = new Exchange();
             var context = new ExchangeContext();
 
-            context.ApiKey = txt_ApiKey.Text;
-            context.Secret = txt_SecretKey.Text;
+            context.ApiKey = Settings.Default["APIKey"].ToString();
+            context.Secret = Settings.Default["SecretKey"].ToString();
             context.Simulate = true;
             context.QuoteCurrency = "BTC";
             exc.Initialise(context);
