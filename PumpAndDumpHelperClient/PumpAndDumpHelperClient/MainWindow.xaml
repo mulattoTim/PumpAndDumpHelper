@@ -18,15 +18,15 @@
         </ComboBox>
         <Label x:Name="lbl_Market" Content="Market" HorizontalAlignment="Left" Height="23" Margin="30,10,0,0" VerticalAlignment="Top" Width="50"/>
         <Rectangle Fill="#FFECECFF" HorizontalAlignment="Left" Height="50" Stroke="Black" VerticalAlignment="Top" Width="225" Panel.ZIndex="-1"/>
-        <Label x:Name="lbl_LastUpdate" Content="Last Update: " HorizontalAlignment="Left" Height="34" Margin="352,277,0,0" VerticalAlignment="Top" Width="107" FontSize="16"/>
-        <Label x:Name="lbl_LastUpdateTime" Content="" HorizontalAlignment="Left" Height="34" Margin="464,277,0,0" VerticalAlignment="Top" Width="141" FontSize="16" Foreground="#FF035111" Grid.ColumnSpan="2"/>
+        <Label x:Name="lbl_LastUpdate" Content="Last Update: " HorizontalAlignment="Left" Height="34" Margin="358,330,0,0" VerticalAlignment="Top" Width="107" FontSize="16"/>
+        <Label x:Name="lbl_LastUpdateTime" Content="" HorizontalAlignment="Left" Height="34" Margin="470,330,0,0" VerticalAlignment="Top" Width="141" FontSize="16" Foreground="#FF035111"/>
         <Label x:Name="lbl_CurrentBuyPrice" Content="Current Buy Price:" HorizontalAlignment="Left" Height="31" Margin="362,114,0,0" VerticalAlignment="Top" Width="126"/>
-        <Label x:Name="lbl_CurrentBuyPriceAmountInBTC" Content="NaN" HorizontalAlignment="Left" Height="23" Margin="493,114,0,0" VerticalAlignment="Top" Width="94" Foreground="#FF04290A" FontWeight="Bold" Grid.ColumnSpan="2"/>
+        <Label x:Name="lbl_CurrentTickerBuyPriceAmountInBTC" Content="0" HorizontalAlignment="Left" Height="23" Margin="493,114,0,0" VerticalAlignment="Top" Width="94" Foreground="#FF04290A" FontWeight="Bold"/>
         <Label x:Name="lbl_CurrentSalePrice" Content="Current Sale Price:" HorizontalAlignment="Left" Height="24" Margin="362,138,0,0" VerticalAlignment="Top" Width="126"/>
-        <Label x:Name="lbl_CurrentSalePriceAmountInBTC" Content="NaN" HorizontalAlignment="Left" Height="24" Margin="493,138,0,0" VerticalAlignment="Top" Width="94" Foreground="#FF05336A" FontWeight="Bold" Grid.ColumnSpan="2"/>
+        <Label x:Name="lbl_CurrentTickerSalePriceAmountInBTC" Content="0" HorizontalAlignment="Left" Height="24" Margin="493,138,0,0" VerticalAlignment="Top" Width="94" Foreground="#FF05336A" FontWeight="Bold"/>
         <Label x:Name="lbl_CoinsOwned" Content="Amount Owned:" HorizontalAlignment="Left" Height="23" Margin="363,166,0,0" VerticalAlignment="Top" Width="126"/>
-        <Label x:Name="lbl_CoinsOwnedAmount" Content="NaN" HorizontalAlignment="Left" Height="23" Margin="493,162,0,0" VerticalAlignment="Top" Width="94" Foreground="#FF035111" FontWeight="Bold" Grid.ColumnSpan="2"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="125" Margin="339,113,0,0" VerticalAlignment="Top" Width="241" Panel.ZIndex="-2" Background="#FFF3F3F3" Grid.ColumnSpan="2"/>
+        <Label x:Name="lbl_CoinsOwnedAmount" Content="0" HorizontalAlignment="Left" Height="23" Margin="493,162,0,0" VerticalAlignment="Top" Width="94" Foreground="#FF035111" FontWeight="Bold"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="125" Margin="339,113,0,0" VerticalAlignment="Top" Width="241" Panel.ZIndex="-2" Background="#FFF3F3F3"/>
         <Label x:Name="lblCoinName" Content="COIN NAME" HorizontalAlignment="Left" Height="62" Margin="85,68,0,0" VerticalAlignment="Top" Width="220" FontSize="36" FontWeight="Bold"/>
         <TextBox x:Name="txt_tickerValue" HorizontalAlignment="Left" Height="105" Margin="85,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" FontSize="72" FontWeight="Bold" Background="White" TextAlignment="Center" TextChanged="txt_tickerValue_TextChanged"/>
         <Button x:Name="btn_ManuallyUpdateTickerInfo" Content="" HorizontalAlignment="Left" Height="32" Margin="30,162,0,0" VerticalAlignment="Top" Width="37" Click="btn_ManuallyUpdateTickerInfo_Click">
@@ -38,38 +38,41 @@
             </Button.Background>
         </Button>
         <Button x:Name="btn_JoinPump" Content="To The MOON!" HorizontalAlignment="Left" Height="160" Margin="85,370,0,0" VerticalAlignment="Top" Width="265" FontWeight="Bold" FontSize="36" Background="#FF7AFF49"/>
-        <Label x:Name="lbl_ProjectedBuyPrice" Content="Current Buy Price:" HorizontalAlignment="Left" Height="38" Margin="379,386,0,0" VerticalAlignment="Top" Width="161" FontSize="16" Grid.ColumnSpan="2"/>
-        <Label x:Name="lbl_CurrentBuyPriceAmountInBTC_Copy" Content="0.00307310" HorizontalAlignment="Left" Height="34" Margin="63,386,0,0" VerticalAlignment="Top" Width="107" FontSize="16" Foreground="#FF04290A" FontWeight="Bold" Grid.Column="1"/>
-        <Label x:Name="lbl_SalePricePerCoinIinBTC" Content="Sale Price per coin:" HorizontalAlignment="Left" Height="34" Margin="202,386,0,0" VerticalAlignment="Top" Width="179" FontSize="16" Grid.Column="1"/>
-        <Label x:Name="lbl_SalePricePerCoinIinBTCAmount" Content="0.0061462" HorizontalAlignment="Left" Height="29" Margin="386,386,0,0" VerticalAlignment="Top" Width="107" FontSize="16" Foreground="#FF05336A" FontWeight="Bold" Grid.Column="1"/>
-        <Label x:Name="lbl_CoinsPurchasable" Content="Coins Purchasable:" HorizontalAlignment="Left" Height="39" Margin="379,420,0,0" VerticalAlignment="Top" Width="161" FontSize="16" Grid.ColumnSpan="2"/>
-        <Label x:Name="lbl_CoinsPurchasableAmount" Content="1523.14888342" HorizontalAlignment="Left" Height="35" Margin="63,420,0,0" VerticalAlignment="Top" Width="107" FontSize="16" Foreground="#FF035111" FontWeight="Bold" Grid.Column="1"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="160" Margin="355,370,0,0" VerticalAlignment="Top" Width="315" Panel.ZIndex="-1" Background="White" Grid.ColumnSpan="2"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="160" Margin="178,370,0,0" VerticalAlignment="Top" Width="315" Panel.ZIndex="-1" Background="White" Grid.Column="1"/>
-        <Label x:Name="lbl_BuyPriceInBTC" Content="Buy price in BTC:" HorizontalAlignment="Left" Height="35" Margin="379,455,0,0" VerticalAlignment="Top" Width="161" FontSize="16" Grid.ColumnSpan="2"/>
-        <Label x:Name="lbl_BuyPriceInBTCAmount" Content="4.6808" HorizontalAlignment="Left" Height="35" Margin="63,455,0,0" VerticalAlignment="Top" Width="107" FontSize="16" Foreground="#FF035111" FontWeight="Bold" Grid.Column="1"/>
-        <Label x:Name="lbl_BuyPriceInUSD" Content="Price in USD:" HorizontalAlignment="Left" Height="35" Margin="379,490,0,0" VerticalAlignment="Top" Width="161" FontSize="16" Grid.ColumnSpan="2"/>
-        <Label x:Name="lbl_BuyPriceInBTCAmount_Copy" Content="7129.5529351" HorizontalAlignment="Left" Height="35" Margin="63,490,0,0" VerticalAlignment="Top" Width="107" FontSize="16" Foreground="#FF035111" FontWeight="Bold" Grid.Column="1"/>
+        <Label x:Name="lbl_ProjectedBuyPrice" Content="Current Buy Price:" HorizontalAlignment="Left" Height="38" Margin="379,386,0,0" VerticalAlignment="Top" Width="161" FontSize="16"/>
+        <Label x:Name="lbl_CurrentBuyPriceAmountInBTC" Content="0" HorizontalAlignment="Left" Height="34" Margin="563,386,0,0" VerticalAlignment="Top" Width="107" FontSize="16" Foreground="#FF04290A" FontWeight="Bold"/>
+        <Label x:Name="lbl_SalePricePerCoinIinBTC" Content="Sale Price per coin:" HorizontalAlignment="Left" Height="34" Margin="702,386,0,0" VerticalAlignment="Top" Width="179" FontSize="16"/>
+        <Label x:Name="lbl_SalePricePerCoinIinBTCAmount" Content="0.0061462" HorizontalAlignment="Left" Height="29" Margin="886,386,0,0" VerticalAlignment="Top" Width="107" FontSize="16" Foreground="#FF05336A" FontWeight="Bold"/>
+        <Label x:Name="lbl_CoinsPurchasable" Content="Coins Purchasable:" HorizontalAlignment="Left" Height="39" Margin="379,420,0,0" VerticalAlignment="Top" Width="161" FontSize="16"/>
+        <Label x:Name="lbl_CoinsPurchasableAmount" Content="0" HorizontalAlignment="Left" Height="35" Margin="563,420,0,0" VerticalAlignment="Top" Width="107" FontSize="16" Foreground="#FF035111" FontWeight="Bold"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="160" Margin="355,370,0,0" VerticalAlignment="Top" Width="315" Panel.ZIndex="-1" Background="White"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="160" Margin="678,370,0,0" VerticalAlignment="Top" Width="315" Panel.ZIndex="-1" Background="White"/>
+        <Label x:Name="lbl_BuyPriceInBTC" Content="Buy price in BTC:" HorizontalAlignment="Left" Height="35" Margin="379,455,0,0" VerticalAlignment="Top" Width="161" FontSize="16"/>
+        <Label x:Name="lbl_BuyPriceInBTCAmount" Content="0" HorizontalAlignment="Left" Height="35" Margin="563,455,0,0" VerticalAlignment="Top" Width="107" FontSize="16" Foreground="#FF035111" FontWeight="Bold"/>
+        <Label x:Name="lbl_BuyPriceInUSD" Content="Price in USD:" HorizontalAlignment="Left" Height="35" Margin="379,490,0,0" VerticalAlignment="Top" Width="161" FontSize="16"/>
+        <Label x:Name="lbl_BuyPriceInUSDAmount" Content="0" HorizontalAlignment="Left" Height="35" Margin="563,490,0,0" VerticalAlignment="Top" Width="107" FontSize="16" Foreground="#FF035111" FontWeight="Bold"/>
         <Label x:Name="lbl_PositionValueInBTC" Content="Total BTC Value:" HorizontalAlignment="Left" Height="23" Margin="362,185,0,0" VerticalAlignment="Top" Width="131"/>
-        <Label x:Name="lbl_PositionValueInBTCAmount" Content="NaN" HorizontalAlignment="Left" Height="23" Margin="493,185,0,0" VerticalAlignment="Top" Width="94" Foreground="#FF035111" FontWeight="Bold" Grid.ColumnSpan="2"/>
+        <Label x:Name="lbl_PositionValueInBTCAmount" Content="0" HorizontalAlignment="Left" Height="23" Margin="493,185,0,0" VerticalAlignment="Top" Width="94" Foreground="#FF035111" FontWeight="Bold"/>
         <Label x:Name="lbl_PositionValueInUSD" Content="Total USD Value:" HorizontalAlignment="Left" Height="23" Margin="362,208,0,0" VerticalAlignment="Top" Width="131"/>
-        <Label x:Name="lbl_PositionValueInUSDAmount" Content="NaN" HorizontalAlignment="Left" Height="23" Margin="493,208,0,0" VerticalAlignment="Top" Width="94" Foreground="#FF035111" FontWeight="Bold" Grid.ColumnSpan="2"/>
-        <Label x:Name="lbl_BTCCurrentValue" Content="BitCoin Current Value:" HorizontalAlignment="Left" Height="34" Margin="348,74,0,0" VerticalAlignment="Top" Width="168" FontSize="16" Grid.ColumnSpan="2"/>
-        <Label x:Name="lbl_BTCCurrentValueAmount" Content="$2638.7175" HorizontalAlignment="Left" Height="34" Margin="16,74,0,0" VerticalAlignment="Top" Width="141" FontSize="16" Foreground="#FF035111" Grid.Column="1"/>
-        <Label x:Name="lbl_SellPriceInBTC" Content="Total Sale price in BTC:" HorizontalAlignment="Left" Height="35" Margin="202,420,0,0" VerticalAlignment="Top" Width="179" FontSize="16" Grid.Column="1"/>
-        <Label x:Name="lbl_SellPriceInBTCAmount" Content="9.36157766" HorizontalAlignment="Left" Height="35" Margin="386,420,0,0" VerticalAlignment="Top" Width="107" FontSize="16" Foreground="#FF035111" FontWeight="Bold" Grid.Column="1"/>
-        <Label x:Name="lbl_SellPriceInUSD" Content="Total Sale price in USD:" HorizontalAlignment="Left" Height="35" Margin="202,455,0,0" VerticalAlignment="Top" Width="179" FontSize="16" Grid.Column="1"/>
-        <Label x:Name="lbl_lbl_SellPriceInUSDAmount" Content="24702.55881143877" HorizontalAlignment="Left" Height="35" Margin="386,455,0,0" VerticalAlignment="Top" Width="107" FontSize="16" Foreground="#FF035111" FontWeight="Bold" Grid.Column="1"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="69" Margin="362,166,0,0" VerticalAlignment="Top" Width="210" Panel.ZIndex="-1" Background="White" Grid.ColumnSpan="2"/>
-        <Label x:Name="lbl_TotalProfit" Content="Total Profit: " HorizontalAlignment="Left" Height="35" Margin="202,490,0,0" VerticalAlignment="Top" Width="161" FontSize="16" Grid.Column="1"/>
-        <Label x:Name="lbl_TotalProfitAmount" Content="17573.00587633877" HorizontalAlignment="Left" Height="35" Margin="386,490,0,0" VerticalAlignment="Top" Width="107" FontSize="16" Foreground="#FF035111" FontWeight="Bold" Grid.Column="1"/>
-        <Label x:Name="lbl_DollarSign" Content="$" HorizontalAlignment="Left" Height="35" Margin="51,490,0,0" VerticalAlignment="Top" Width="18" FontSize="16" Foreground="#FF035111" FontWeight="Bold" Grid.Column="1"/>
-        <Label x:Name="lbl_DollarSign_Copy" Content="$" HorizontalAlignment="Left" Height="35" Margin="376,490,0,0" VerticalAlignment="Top" Width="18" FontSize="16" Foreground="#FF035111" FontWeight="Bold" Grid.Column="1"/>
-        <Label x:Name="lbl_DollarSign_Copy1" Content="$" HorizontalAlignment="Left" Height="27" Margin="485,208,0,0" VerticalAlignment="Top" Width="18" Foreground="#FF035111" FontWeight="Bold" Grid.ColumnSpan="2"/>
+        <Label x:Name="lbl_PositionValueInUSDAmount" Content="0.0" HorizontalAlignment="Left" Height="23" Margin="493,208,0,0" VerticalAlignment="Top" Width="94" Foreground="#FF035111" FontWeight="Bold"/>
+        <Label x:Name="lbl_BTCCurrentValue" Content="BitCoin Current Value:" HorizontalAlignment="Left" Height="34" Margin="592,140,0,0" VerticalAlignment="Top" Width="184" FontSize="16"/>
+        <Label x:Name="lbl_BTCCurrentValueAmount" Content="2627.1375" HorizontalAlignment="Left" Height="34" Margin="776,140,0,0" VerticalAlignment="Top" Width="141" FontSize="16" Foreground="#FF035111"/>
+        <Label x:Name="lbl_SellPriceInBTC" Content="Total Sale price in BTC:" HorizontalAlignment="Left" Height="35" Margin="702,420,0,0" VerticalAlignment="Top" Width="179" FontSize="16"/>
+        <Label x:Name="lbl_SellPriceInBTCAmount" Content="9.36157766" HorizontalAlignment="Left" Height="35" Margin="886,420,0,0" VerticalAlignment="Top" Width="107" FontSize="16" Foreground="#FF035111" FontWeight="Bold"/>
+        <Label x:Name="lbl_SellPriceInUSD" Content="Total Sale price in USD:" HorizontalAlignment="Left" Height="35" Margin="702,455,0,0" VerticalAlignment="Top" Width="179" FontSize="16"/>
+        <Label x:Name="lbl_lbl_SellPriceInUSDAmount" Content="24702.55881143877" HorizontalAlignment="Left" Height="35" Margin="886,455,0,0" VerticalAlignment="Top" Width="107" FontSize="16" Foreground="#FF035111" FontWeight="Bold"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="69" Margin="362,166,0,0" VerticalAlignment="Top" Width="210" Panel.ZIndex="-1" Background="White"/>
+        <Label x:Name="lbl_TotalProfit" Content="Total Profit: " HorizontalAlignment="Left" Height="35" Margin="702,490,0,0" VerticalAlignment="Top" Width="161" FontSize="16"/>
+        <Label x:Name="lbl_TotalProfitAmount" Content="17573.00587633877" HorizontalAlignment="Left" Height="35" Margin="886,490,0,0" VerticalAlignment="Top" Width="107" FontSize="16" Foreground="#FF035111" FontWeight="Bold"/>
+        <Label x:Name="lbl_DollarSign" Content="$" HorizontalAlignment="Left" Height="35" Margin="551,490,0,0" VerticalAlignment="Top" Width="18" FontSize="16" Foreground="#FF035111" FontWeight="Bold"/>
+        <Label x:Name="lbl_DollarSign_Copy" Content="$" HorizontalAlignment="Left" Height="35" Margin="876,490,0,0" VerticalAlignment="Top" Width="18" FontSize="16" Foreground="#FF035111" FontWeight="Bold"/>
+        <Label x:Name="lbl_DollarSign_Copy1" Content="$" HorizontalAlignment="Left" Height="27" Margin="485,208,0,0" VerticalAlignment="Top" Width="18" Foreground="#FF035111" FontWeight="Bold"/>
         <Label x:Name="lblCoinName_Copy" Content="Profit Goal" HorizontalAlignment="Left" Height="51" Margin="85,260,0,0" VerticalAlignment="Top" Width="220" FontSize="36" FontWeight="Bold"/>
         <TextBox x:Name="txt_ProfitGoal" HorizontalAlignment="Left" Height="54" Margin="135,311,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" FontSize="36" Text="2" FontWeight="Bold" Background="White" TextAlignment="Center"/>
         <Label x:Name="lblCoinName_Copy1" Content="x Profit" HorizontalAlignment="Left" Height="50" Margin="180,314,0,0" VerticalAlignment="Top" Width="140" FontSize="24" FontWeight="Bold"/>
-        <CheckBox x:Name="chk_debug" Content="Debug Mode" HorizontalAlignment="Center" Margin="386,176,39,0" VerticalAlignment="Top" Height="32" Width="129" IsChecked="True" FontSize="18" Grid.Column="1"/>
+        <CheckBox x:Name="chk_debug" Content="Debug Mode" HorizontalAlignment="Center" Margin="421,18,504,0" VerticalAlignment="Top" Height="32" Width="129" IsChecked="True" FontSize="18"/>
+        <Label x:Name="lbl_DollarSign_Copy2" Content="$" HorizontalAlignment="Left" Height="35" Margin="767,140,0,0" VerticalAlignment="Top" Width="18" FontSize="16" Foreground="#FF035111"/>
+        <Label x:Name="lbl_BTCBalance" Content="BitCoin Current Balance:" HorizontalAlignment="Left" Height="34" Margin="592,113,0,0" VerticalAlignment="Top" Width="184" FontSize="16" IsEnabled="False"/>
+        <Label x:Name="lbl_BTCBalanceAmount" Content="0" HorizontalAlignment="Left" Height="34" Margin="776,113,0,0" VerticalAlignment="Top" Width="141" FontSize="16" Foreground="#FF035111"/>
 
     </Grid>
 </Window>
