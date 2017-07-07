@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 using Bittrex;
 using Newtonsoft.Json;
 using PumpAndDumpHelperClient.Properties;
-
+using HtmlAgilityPack;
 
 namespace PumpAndDumpHelperClient
 {
@@ -66,8 +66,8 @@ namespace PumpAndDumpHelperClient
 
         public async Task UpdateLastPriceUpdateTimer(double secondsSinceLastUpdate)
             {
-
-            //really hacky way of updating once per second...dat infinite recursion doe.
+            string tickerAbbreviation = txt_tickerValue.Text;
+            //really hacky way of updating once per 3seconds...dat infinite recursion doe.
             
             double TimeSinceLastUpdate = secondsSinceLastUpdate;
             lbl_LastUpdateTime.Content = Math.Round(TimeSinceLastUpdate, 2, MidpointRounding.AwayFromZero) + " secs ago.";
@@ -80,6 +80,7 @@ namespace PumpAndDumpHelperClient
             else
                 {
                 secondsSinceLastUpdate = 0;
+                GetMarketSummary(tickerAbbreviation);
                 UpdateLastPriceUpdateTimer(secondsSinceLastUpdate);
                 }
 
