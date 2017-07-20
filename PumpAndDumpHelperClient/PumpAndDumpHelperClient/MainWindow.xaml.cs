@@ -284,7 +284,7 @@ namespace PumpAndDumpHelperClient
 
             var minimumQuantity = exc.CalculateMinimumOrderQuantity(coinToBuy, buyingprice);
 
-            var sellingprice = decimal.Parse(lbl_CurrentTickerBuyPriceAmountInBTC.Content.ToString());
+            var askprice = decimal.Parse(lbl_CurrentTickerBuyPriceAmountInBTC.Content.ToString());
 
             if (!string.IsNullOrEmpty(coinToBuy))        
             {
@@ -295,7 +295,8 @@ namespace PumpAndDumpHelperClient
 
                 GetMarketSummary(coinToBuy);
 
-                sellingprice = decimal.Parse(lbl_CurrentTickerBuyPriceAmountInBTC.Content.ToString());
+                askprice = decimal.Parse(lbl_CurrentTickerBuyPriceAmountInBTC.Content.ToString());
+                var sellingprice = askprice * 2;
 
                 //await Task.Delay(1000);
                 SellCoinTest(coinToBuy, minimumQuantity, sellingprice);
