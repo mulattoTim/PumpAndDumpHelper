@@ -266,6 +266,70 @@ namespace PumpAndDumpHelperClient
 
         }
 
+        public async Task BuyCoinTest(string coinToBuy)
+            {
+
+            var exc = new Exchange();
+            var context = new ExchangeContext();
+
+            context.ApiKey = Settings.Default["APIKey"].ToString();
+            context.Secret = Settings.Default["SecretKey"].ToString();
+            context.Simulate = false;
+            context.QuoteCurrency = "BTC";
+            exc.Initialise(context);
+
+            GetMarketSummary(coinToBuy);
+
+            var buyingprice = decimal.Parse(lbl_CurrentTickerSalePriceAmountInBTC.Content.ToString());
+
+            var minimumQuantity = exc.CalculateMinimumOrderQuantity(coinToBuy, buyingprice);
+
+            var sellingprice = decimal.Parse(lbl_CurrentTickerBuyPriceAmountInBTC.Content.ToString());
+
+            if (!string.IsNullOrEmpty(coinToBuy))        
+            {
+
+
+                //exc.PlaceBuyOrder("ANS", decimal.Parse("0.2"), buyingprice);
+                exc.PlaceBuyOrder(coinToBuy, minimumQuantity, buyingprice);
+
+                GetMarketSummary(coinToBuy);
+
+                sellingprice = decimal.Parse(lbl_CurrentTickerBuyPriceAmountInBTC.Content.ToString());
+
+                //await Task.Delay(1000);
+                SellCoinTest(coinToBuy, minimumQuantity, sellingprice);
+
+
+            }
+
+        }
+
+        public async Task SellCoinTest(string coinToSell, decimal amountToSell, decimal priceToSellAt)
+        {
+            var exc = new Exchange();
+            var context = new ExchangeContext();
+
+            context.ApiKey = Settings.Default["APIKey"].ToString();
+            context.Secret = Settings.Default["SecretKey"].ToString();
+            context.Simulate = false;
+            context.QuoteCurrency = "BTC";
+            exc.Initialise(context);
+
+            //var readyToSale = isOrderCompleted();
+
+
+                //await Task.Delay(1000);
+                exc.PlaceSellOrder(coinToSell, amountToSell, priceToSellAt);
+
+            
+        }
+
+        private bool isOrderCompleted()
+        {
+            return true;
+        }
+
         private void txt_tickerValue_TextChanged(object sender, TextChangedEventArgs e)
         {
             //grab value from text box. 
@@ -319,6 +383,16 @@ namespace PumpAndDumpHelperClient
             // calculate prices, shoot off api call to place order
             //start loop to try and place sell order once buy order has been filled.
             //
+            string tickerAbbreviation = txt_tickerValue.Text;
+
+            //BuyCoinTest("ANS");
+            if (!String.IsNullOrEmpty(tickerAbbreviation))
+            {
+                BuyCoinTest(tickerAbbreviation);
+            }
+                
+
+
         }
     }
 }
