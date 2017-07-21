@@ -290,15 +290,16 @@ namespace PumpAndDumpHelperClient
             {
 
 
-                //exc.PlaceBuyOrder("ANS", decimal.Parse("0.2"), buyingprice);
                 exc.PlaceBuyOrder(coinToBuy, minimumQuantity, buyingprice);
 
                 GetMarketSummary(coinToBuy);
 
                 askprice = decimal.Parse(lbl_CurrentTickerBuyPriceAmountInBTC.Content.ToString());
-                var sellingprice = askprice * 2;
 
-                //await Task.Delay(1000);
+
+                var sellingprice = askprice * decimal.Parse("1.225");
+
+                await Task.Delay(250);
                 SellCoinTest(coinToBuy, minimumQuantity, sellingprice);
 
 
